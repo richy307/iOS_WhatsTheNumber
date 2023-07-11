@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     var answer: Int = Int.random(in: 1...100) // 產生亂數 random number // make a random number
     var maxNumber = 100
     var minNumber = 1
+    var isOver = false // 遊戲狀態
 
     // Outlet：元件綁定
     @IBOutlet weak var messageLabel: UILabel!
@@ -19,51 +20,64 @@ class ViewController: UIViewController {
     
     // Action：元件觸發事件
     @IBAction func makeGuess(_ sender: UIButton) {
-        print(answer)
-        
-        // take input text out // 取得輸入匡數值
-        let inputText = inputTextField.text! // ! 驚嘆號 保證一定有值
-        let inputNumber = Int(inputText) // String to Int // nil:未輸入
-        print("input text = \(inputText)")
-        
-        // clear TextField
-        inputTextField.text = ""
-        
-        // check number
-        if inputNumber == nil {
-            print("no input")
-            messageLabel.text = "No input! Guess a number between \(minNumber)~\(maxNumber)"
+        if isOver == false {
+            // playing game
+            print(answer)
             
-        } else {
-            // get input
-            if inputNumber! > 100 {
-                // user input too large
-                messageLabel.text = "Too large! Guess a number between \(minNumber)~\(maxNumber)"
-                print("Too large")
-                
-            } else if inputNumber! < 1 {
-                // user input too small
-                messageLabel.text = "Too small! Guess a number between \(minNumber)~\(maxNumber)"
-                print("Too small")
+            // take input text out // 取得輸入匡數值
+            let inputText = inputTextField.text! // ! 驚嘆號 保證一定有值
+            let inputNumber = Int(inputText) // String to Int // nil:未輸入 // Int(inputText)!
+            print("input text = \(inputText)")
+            
+            // clear TextField
+            inputTextField.text = ""
+            
+            // check number
+            if inputNumber == nil {
+                print("no input")
+                messageLabel.text = "No input! Guess a number between \(minNumber)~\(maxNumber)"
                 
             } else {
-                // check answer
-                print("check answer")
-                if inputNumber! == answer {
-                    // right answer
-                    messageLabel.text = "You are right!"
+                // get input
+                if inputNumber! > 100 {
+                    // user input too large
+                    messageLabel.text = "Too large! Guess a number between \(minNumber)~\(maxNumber)"
+                    print("Too large")
+                    
+                } else if inputNumber! < 1 {
+                    // user input too small
+                    messageLabel.text = "Too small! Guess a number between \(minNumber)~\(maxNumber)"
+                    print("Too small")
+                    
                 } else {
-                    // wrong anser
-                    if inputNumber! > answer {
-                        // larger than answer
-                        maxNumber = inputNumber!
+                    // check answer
+                    print("check answer")
+                    if inputNumber! == answer {
+                        // right answer
+                        messageLabel.text = "You are right! Press [Guess] to play again"
+                        isOver = true
+                        
                     } else {
-                        // smaller than answer
-                        minNumber = inputNumber!
+                        // wrong anser
+                        if inputNumber! > answer {
+                            // larger than answer
+                            maxNumber = inputNumber!
+                        } else {
+                            // smaller than answer
+                            minNumber = inputNumber!
+                        }
+                        messageLabel.text = "Try again! Guess a number between \(minNumber)~\(maxNumber)"
                     }
-                    messageLabel.text = "Try again! Guess a number between \(minNumber)~\(maxNumber)"
                 }
             }
+            
+        } else {
+            // game is over // 狀態重置
+            maxNumber = 100
+            minNumber = 1
+            messageLabel.text = ""
+            answer = Int.random(in: 1...100) // 新的數字
+            isOver = false // 重新開始遊戲
         }
     }
     
@@ -74,7 +88,6 @@ class ViewController: UIViewController {
         // push the keyboard up // 觸發輸入匡讓鍵盤出現
         inputTextField.becomeFirstResponder()
     }
-
 
 }
 
