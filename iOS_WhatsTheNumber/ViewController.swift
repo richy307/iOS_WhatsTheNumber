@@ -18,6 +18,28 @@ class ViewController: UIViewController {
     
     @IBAction func makeGuess(_ sender: UIButton) {
         print(answer)
+        
+        // take input text out // 取得輸入匡數值
+        let inputText = inputTextField.text! // ! 驚嘆號保證一定有值
+        print("input text = \(inputText)")
+        
+        let inputNumber = Int(inputText) // String to Int // nil:未輸入
+        
+        if inputNumber == nil {
+            print("no input")
+        } else {
+            // get input
+            if inputNumber! > 100 {
+                // user input too large
+                print("Too large")
+            } else if inputNumber! < 1 {
+                // user input too small
+                print("Too small")
+            } else {
+                // check answer
+                print("check answer")
+            }
+        }
     }
     
     override func viewDidLoad() {
