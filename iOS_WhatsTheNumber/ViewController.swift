@@ -35,18 +35,18 @@ class ViewController: UIViewController {
             // check number
             if inputNumber == nil {
                 print("no input")
-                messageLabel.text = "No input! Guess a number between \(minNumber)~\(maxNumber)"
+                messageLabel.text = "No input!\n Guess a number between \(minNumber)~\(maxNumber)"
                 
             } else {
                 // get input
                 if inputNumber! > 100 {
                     // user input too large
-                    messageLabel.text = "Too large! Guess a number between \(minNumber)~\(maxNumber)"
+                    messageLabel.text = "Too large!\n Guess a number between \(minNumber)~\(maxNumber)"
                     print("Too large")
                     
                 } else if inputNumber! < 1 {
                     // user input too small
-                    messageLabel.text = "Too small! Guess a number between \(minNumber)~\(maxNumber)"
+                    messageLabel.text = "Too small!\n Guess a number between \(minNumber)~\(maxNumber)"
                     print("Too small")
                     
                 } else {
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
                     print("check answer")
                     if inputNumber! == answer {
                         // right answer
-                        messageLabel.text = "You are right! Press [Guess] to play again"
+                        messageLabel.text = "You are right!\n Press [Guess] to play again"
                         isOver = true
                         
                     } else {
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
                             // smaller than answer
                             minNumber = inputNumber!
                         }
-                        messageLabel.text = "Try again! Guess a number between \(minNumber)~\(maxNumber)"
+                        messageLabel.text = "Try again!\n Guess a number between \(minNumber)~\(maxNumber)"
                     }
                 }
             }
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
             // game is over // 狀態重置
             maxNumber = 100
             minNumber = 1
-            messageLabel.text = ""
+            messageLabel.text = "Guess a number between 1~100"
             answer = Int.random(in: 1...100) // 新的數字
             isOver = false // 重新開始遊戲
         }
